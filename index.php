@@ -16,6 +16,12 @@ $lapangan = mysqli_query($conn, "SELECT * FROM lapangan")->fetch_all(MYSQLI_ASSO
 
 <body>
     <h2>data lapangan</h2>
+    <a href="lapangan/booking.php">
+        <div>
+            <button >booking sekarang brodi</button>
+        </div>
+    </a>
+
     <table>
         <tr>
             <th>ID</th>
