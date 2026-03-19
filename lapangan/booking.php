@@ -1,46 +1,49 @@
 <?php
 require "../config/db.php";
-
-if (isset($_POST['create'])) {
-    $lapangan_id = $_POST['lapangan'];
-    $user_id = $_POST['nama'];
-    $tgl_booking = $_POST['tanggal'];
-    $jam_mulai = $_POST['jam'];
-    $durasi = $_POST['durasi'];
-    $status_pembayaran = $_POST['status_pembayaran'];
-
-    $query = "INSERT INTO bookings (lapangan_id, user_id, tgl_booking, jam_mulai, durasi, status_pembayaran) 
-              VALUES ('$lapangan_id', '$user_id', '$tgl_booking', '$jam_mulai', '$durasi' , '$status_pembayaran')";
-
-    $create = mysqli_query($conn, $query);
-
-    if ($create) {
-        header('Location: ../index.php');
-        exit(); 
-    } else {
-        echo "Gagal booking: " . mysqli_error($conn); 
-    }
-}
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Booking Lapangan</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
 </head>
 <body>
     <h1>Booking Lapangan</h1>
-    <a href=" ../index.php">Back</a>
+    <a href="../index.php">Back</a>
 
-    <form method="post">
-        <input type="text" name="lapangan" placeholder="ID lapangan" required>
-        <input type="text" name="nama" placeholder="ID user" required>
+    <?php if (isset($_GET['error']) && $_GET['error'] == 'lapangan'): ?>
+        <p style="color:red;">pilih lapangan 1(gor unair) atau 2(gor liyue)</p>
+    <?php endif; ?>
+
+    <?php if (isset($_GET['error']) && $_GET['error'] == 'user'): ?>
+        <p style="color:red;">user belum terdaftar</p>
+    <?php endif; ?>
+
+    <?php if (isset($_GET['error']) && $_GET['error'] == 'status'): ?>
+        <p style="color:red;">isi lunas atau belum </p>
+    <?php endif; ?>
+
+    <?php if (isset($_GET['status'])): ?>
+        <p style="color:green;">berhasil booking</p>
+    <?php endif; ?>
+
+
+    <form method="post" action="proses_booking.php">
+        <input type="number" name="lapangan" placeholder="ID lapangan" required>
+        <input type="number" name="nama" placeholder="ID user" required>
         <input type="date" name="tanggal" required>
         <input type="time" name="jam" required>
         <input type="number" name="durasi" placeholder="durasi (jam)" required>
-        <input type="bool" name="status_pembayaran" placeholder="status" required>
+
+        <select name="status_pembayaran">
+            <option value="0">Belum Lunas</option>
+            <option value="1">Lunas</option>
+        </select>
 
         <button type="submit" name="create">Booking</button>
     </form>
+
 </body>
 </html>
