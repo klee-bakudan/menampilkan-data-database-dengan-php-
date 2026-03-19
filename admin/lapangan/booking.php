@@ -1,5 +1,5 @@
 <?php
-require "../config/db.php";
+require "../../config/db.php";
 ?>
 
 <!DOCTYPE html>
@@ -36,10 +36,11 @@ require "../config/db.php";
         <input type="date" name="tanggal" required>
         <input type="time" name="jam" required>
         <input type="number" name="durasi" placeholder="durasi (jam)" required>
+        <input type="number" name="total" placeholder="total harga" required>
 
         <select name="status_pembayaran">
-            <option value="0">Belum Lunas</option>
-            <option value="1">Lunas</option>
+            <option value="0">blum lunas</option>
+            <option value="1">lunas bos</option>
         </select>
 
         <button type="submit" name="create">Booking</button>
